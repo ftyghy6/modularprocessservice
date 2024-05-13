@@ -1,14 +1,14 @@
-function productExceptSelf(nums) {
-  const result = [];
-  let product = 1;
-  for (let i = 0; i < nums.length; i++) {
-    result[i] = product;
-    product *= nums[i];
+function findRedundantConnection(edges) {
+  const parent = new Array(edges.length + 1).fill(-1);
+  for (const edge of edges) {
+    const u = find(parent, edge[0]);
+    const v = find(parent, edge[1]);
+    if (u === v) return edge;
+    parent[u] = v;
   }
-  product = 1;
-  for (let i = nums.length - 1; i >= 0; i--) {
-    result[i] *= product;
-    product *= nums[i];
-  }
-  return result;
+  return [];
+}
+function find(parent, i) {
+  if (parent[i] === -1) return i;
+  return find(parent, parent[i]);
 }
